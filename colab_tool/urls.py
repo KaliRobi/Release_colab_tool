@@ -20,5 +20,14 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     # to add endpoints for login and registration
-    path('accounts/', include('django.contrib.auth.urls'))
+    path('accounts/', include('django.contrib.auth.urls')),
+
+    path('api-auth/', include('rest_framework.urls')),
+
+    path('auth/', include('djoser.urls')),
+
+    # provide a autentication endpoints loginlogout, the login provides the token
+    path('auth/', include('djoser.urls.authtoken'))
+
 ]
+
