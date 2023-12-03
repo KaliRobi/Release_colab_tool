@@ -8,6 +8,6 @@ from defects.models import Defect
 @receiver(pre_save, sender=Defect)
 def unique_identifier_generator(sender, instance, *args, **kwargs):
     if instance and not instance.slug:
-        slug = slugify(instance.content)
+        slug = slugify(instance.defect_number)
         random_string = get_random_string(length=6)
-        instance.slug = slug + " - " + random_string
+        instance.slug = slug + "-" + random_string
