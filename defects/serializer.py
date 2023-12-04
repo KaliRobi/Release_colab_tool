@@ -32,25 +32,24 @@ class CommentSerialiser(serializers.ModelSerializer):
     author = serializers.StringRelatedField()
     insert_time = serializers.SerializerMethodField()
     votes_count =  serializers.SerializerMethodField()
-    has_user_voted = serializers.SerializerMethodField()
-    comment_slag = serializers.SerializerMethodField()
+    defect_slug = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
-        exclude = ['defect', 'up_vote', 'update_time']
+        exclude = ['defect', 'up_votes', 'update_time']
 
    
     def get_insert_time(self, instance):
         #month name, day,  year
         return instance.insert_time.strftime('%d-%b-%Y')
     
-    def get_up_votes_count(self, instance):
+    def get_votes_count(self, instance):
         return instance.up_votes.count()
     
 
     def get_user_answered(self, instance):
         req = self.context.get("request")
-        return instance.voters.filter(pk=req.user.pk ).existsi()
+        return instance.voters.filter(pk=req.user.pk ).exists()
     
     def get_defect_slug(self,instance):
         return instance.defect.slug

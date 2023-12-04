@@ -4,10 +4,9 @@ from django.db import models
 # manage.py migrate --run-syncdb
 
 class ApplicationTimeStamp(models.Model):
-    insert_time  = models.DateTimeField(auto_created=True)
+    insert_time  = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
 
     # no instance in db
     class Meta:
-        app_label = 'application_time'
         abstract = True

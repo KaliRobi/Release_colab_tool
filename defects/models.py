@@ -15,9 +15,10 @@ class Defect(ApplicationTimeStamp):
       version = models.CharField(max_length=10)
       status = models.CharField(max_length=20)
       comments = models.CharField(max_length=2000, blank=True)
-      author = models.ForeignKey(
-            settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, related_name='reported_by' 
+      created_by = models.ForeignKey(
+            settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, related_name='defects', default=" " 
       )
+      
 
       def __str__(self):
             return self.comments
