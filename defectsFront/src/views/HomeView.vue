@@ -4,6 +4,6 @@ import AuthenticationView from './AuthenticationView.vue';
 
 <template>
   <div>
-    <p>ssssssssssssssss</p>
+    <p>HOME VIEW IS  HERE</p>
   </div>
 </template>

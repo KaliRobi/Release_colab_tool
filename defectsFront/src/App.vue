@@ -6,6 +6,5 @@ import { RouterLink, RouterView } from 'vue-router'
        <div>
         <RouterLink to="/authenticate">This</RouterLink>
       </div>
-
   <RouterView />
 </template>

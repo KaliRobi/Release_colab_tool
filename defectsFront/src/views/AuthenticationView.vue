@@ -1,10 +1,12 @@
 <template>
-<form method="POST">
-        <div class="form-floating mb-3">
+<form method="POST" id="login-form" @submit.prevent="onSubmit" >
+        <div class="bg-blue-500 text-white">
         <label for="floatingUsername">Username</label>
+        <input type="text" id="text" v-model="userName" placeholder="Enter userName...">
         </div>
         <div class="form-floating mb-3">
         <label for="floatingPassword">Password</label>
+        <input type="text" id="text" v-model="password" placeholder="Enter password...">
         </div>
             <div class="text-danger my-3">
          </div>
@@ -13,3 +15,23 @@
         </div>
     </form>
 </template>
+
+<script setup>
+import {ref} from 'vue';
+
+
+const userName = ref('')
+const password = ref('')
+
+
+const onSubmit = () => {
+  console.log(userName.value)
+  console.log(password.value)
+
+
+
+}
+
+
+
+</script>
