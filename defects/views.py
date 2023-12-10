@@ -2,8 +2,10 @@ from rest_framework import generics, viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
+from django.views import View
 from rest_framework.response import Response
-
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
 
 from defects.permissions import IsAuthorOrReadOnly, IsAuthorOrReadOnlyComment
 from defects.models import Defect, Comment
@@ -69,3 +71,11 @@ class CommentVoteAPIView(APIView):
         serializer_context = {"resquest": req}
         serializer = self.serializer_class(comment, context=serializer_context)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+
+class CSRFproviderView(View):
+
+    def get(self, request, *args, **kwargs):
+        csrf_token = get_token(request)
+        return JsonResponse({'csrfToken': csrf_token})

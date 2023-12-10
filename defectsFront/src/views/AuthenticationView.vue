@@ -24,13 +24,28 @@ const userName = ref('')
 const password = ref('')
 
 
-const onSubmit = () => {
+const onSubmit = async () => {
   console.log(userName.value)
   console.log(password.value)
 
+const loginDetails = {
+    "username" : userName.value,
+    "password" : password.value
+}  
 
+ await fetch('http://127.0.0.1:8000/accounts/login/', {
+  method : 'POST',
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body : JSON.stringify(loginDetails)
+ }).then( response => {
+   console.log(response)
+ })
 
 }
+
+
 
 
 
