@@ -29,7 +29,7 @@ urlpatterns = [
     # provide a autentication endpoints loginlogout, the login provides the token
     path('auth/', include('djoser.urls.authtoken')),
 
-     path('api/v1/', include('defects.urls'))
+    path('api/v1/', include('defects.urls'))
 
 ]
 

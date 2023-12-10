@@ -25,26 +25,55 @@ const password = ref('')
 
 
 const onSubmit = async () => {
-  console.log(userName.value)
-  console.log(password.value)
 
+var headers = new Headers();
+headers.append("X-CSRFToken", getCookie('csrftoken'));
+headers.append("Content-Type", "application/x-www-form-urlencoded")
+
+console.log(headers)
 const loginDetails = {
     "username" : userName.value,
     "password" : password.value
 }  
 
+
+console.log (getCookie('csrftoken'))
  await fetch('http://127.0.0.1:8000/accounts/login/', {
   method : 'POST',
-  headers: {
-    "Content-Type": "application/json"
-  },
+  credentials: 'include',
+  headers: headers,
   body : JSON.stringify(loginDetails)
  }).then( response => {
    console.log(response)
- })
+ }).catch(error => {
+    console.error(error);
+  });
 
 }
 
+// const getCRSFToken = async () =>{
+
+// await fetch('http://127.0.0.1:8000/api/v1/csrf_token_provider_endpoint/', {
+//   method : 'GET',
+//   headers: {
+//     "Content-Type": "application/json"
+//   }
+  
+// }).then (response => response.json()
+// ).then(data =>{const csrfToken = data
+//   localStorage.setItem('csrfToken', csrfToken['csrfToken'])
+// }).catch(error => {
+//     console.error(error);
+//   });
+
+
+// }
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
 
 
