@@ -54,11 +54,11 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
@@ -136,9 +136,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 CSRF_COOKIE_SECURE = False
 
-SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = 'Lax'
 
-CSRF_COOKIE_NAME = 'csrftoken'
+CSRF_COOKIE_DOMAIN = [
+    '.localhost:5173'
+]
+
+SESSION_COOKIE_SECURE = False
 
 STATIC_URL = 'static/'
 

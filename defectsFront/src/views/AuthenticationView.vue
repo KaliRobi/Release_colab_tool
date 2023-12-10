@@ -17,6 +17,7 @@
 </template>
 
 <script setup>
+ import axios from 'axios';
 import {ref} from 'vue';
 
 
@@ -26,28 +27,46 @@ const password = ref('')
 
 const onSubmit = async () => {
 
-var headers = new Headers();
-headers.append("X-CSRFToken", getCookie('csrftoken'));
-headers.append("Content-Type", "application/x-www-form-urlencoded")
+     try {
+      const response = await axios.get('http://localhost:8000/api/v1/csrf_token_provider_endpoint')  
+      const cookie = getCookie('csrftoken')
+      const loginData = {
+        "username" : userName.value,
+        "password" : password.value
+       };
+       axios.defaults.headers.common['X-CSRFToken'] = response.data.csrfToken;
+       await axios.post('http://127.0.0.1:8000/accounts/login/', loginData, {
+         headers: {
+          "X-CSRFToken": cookie,
+          "Content-Type": "application/json"
+         },
+         withCredentials: true, // Send cookies along with the request
+       });
 
-console.log(headers)
-const loginDetails = {
-    "username" : userName.value,
-    "password" : password.value
-}  
+
+     } catch (error) {
+   console.log(error)
+     }
 
 
-console.log (getCookie('csrftoken'))
- await fetch('http://127.0.0.1:8000/accounts/login/', {
-  method : 'POST',
-  credentials: 'include',
-  headers: headers,
-  body : JSON.stringify(loginDetails)
- }).then( response => {
-   console.log(response)
- }).catch(error => {
-    console.error(error);
-  });
+   
+
+
+
+
+
+
+
+//  await fetch('http://127.0.0.1:8000/accounts/login/', {
+//   method : 'POST',
+//   credentials: 'include',
+//   headers: headers,
+//   body : JSON.stringify(loginDetails)
+//  }).then( response => {
+//    console.log(response)
+//  }).catch(error => {
+//     console.error(error);
+//   });
 
 }
 
