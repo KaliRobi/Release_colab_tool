@@ -66,6 +66,12 @@ MIDDLEWARE = [
        
 ]
 
+REST_FRAMEWORK = {
+       'DEFAULT_PARSER_CLASSES': [
+           'rest_framework.parsers.JSONParser',
+       ],
+   }
+
 ROOT_URLCONF = 'colab_tool.urls'
 
 TEMPLATES = [

@@ -18,6 +18,8 @@ urlpatterns = [
 
     path("comments/<uuid:uuid>/vote/", dvs.CommentVoteAPIView().as_view(), name="comment-votes"),
 
-    path('csrf_token_provider_endpoint/', dvs.CSRFproviderView.as_view(), name='csrf_token'),
+    path('csrf_token_provider_endpoint/', dvs.CSRFproviderView.as_view(), name='csrf-token'),
+
+    path('login_endpoint/', dvs.LoginEndpointView.as_view(), name='login-point'),
 
 ]

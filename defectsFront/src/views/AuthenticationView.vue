@@ -34,13 +34,16 @@ const onSubmit = async () => {
         "username" : userName.value,
         "password" : password.value
        };
+       console.log(loginData)
        axios.defaults.headers.common['X-CSRFToken'] = response.data.csrfToken;
-       await axios.post('http://127.0.0.1:8000/accounts/login/', loginData, {
+       await axios.post('http://localhost:8000/api/v1/login_endpoint/', loginData, {
          headers: {
           "X-CSRFToken": cookie,
-          "Content-Type": "application/json"
+          "Content-Type": "application/x-www-form-urlencoded"
          },
          withCredentials: true, // Send cookies along with the request
+       }).then(res => {
+        console.log(res)
        });
 
 
@@ -49,6 +52,7 @@ const onSubmit = async () => {
      }
 
 
+}
    
 
 
@@ -68,7 +72,7 @@ const onSubmit = async () => {
 //     console.error(error);
 //   });
 
-}
+
 
 // const getCRSFToken = async () =>{
 

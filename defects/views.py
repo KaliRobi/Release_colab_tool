@@ -6,6 +6,8 @@ from django.views import View
 from rest_framework.response import Response
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
+from django.contrib.auth import authenticate, login
+
 
 from defects.permissions import IsAuthorOrReadOnly, IsAuthorOrReadOnlyComment
 from defects.models import Defect, Comment
@@ -79,3 +81,23 @@ class CSRFproviderView(View):
     def get(self, request, *args, **kwargs):
         csrf_token = get_token(request)
         return JsonResponse({'csrfToken': csrf_token})
+    
+
+class LoginEndpointView(APIView):  
+    permission_classes = []
+
+    def post(self, request):
+        print(request.POST.get('username'))
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'message': 'Login successful'})
+        else:
+            return JsonResponse({'message': 'Invalid credentials'})
+
+    def get(self, request):
+        return JsonResponse({'message': 'Invalid request method'})
